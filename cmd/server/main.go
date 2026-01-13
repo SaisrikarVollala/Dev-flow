@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/SaisrikarVollala/Dev-flow/internal/db"
 	"github.com/SaisrikarVollala/Dev-flow/internal/routes"
 	appvalidator "github.com/SaisrikarVollala/Dev-flow/internal/validator"
 	"github.com/gin-gonic/gin"
@@ -17,17 +18,19 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	port := os.Getenv("PORT")
-
-
+	db.ConnectDatabase()
 	appvalidator.Init()
+
+
+
+
+	
 	r := gin.Default()
 	
 
 api := r.Group("/api/v1")
 routes.RegisterAuthRoute(api)
 
-
-
-r.Run(":"+port)
+r.Run(port)
 
 }
